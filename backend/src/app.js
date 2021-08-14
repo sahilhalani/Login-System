@@ -18,6 +18,9 @@ app.set("view engine", "hbs");
 app.set("views", staticpath);
 hbs.registerPartials(staticpath + "/partials");
 
+app.get("/", (req, res) => {
+    res.render("index")
+});
 
 app.get("/register", (req, res) => {
     res.render("register")
