@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 
 
 //for dynamic db
-const db = process.env.DATABASE;
+const db = "mongodb+srv://sahilhalani:Godisgreat4467@cluster0.0no3d.mongodb.net/registerdata?retryWrites=true&w=majority"
 mongoose.connect(db,{
     useNewUrlParser:true,
     useUnifiedTopology:true,

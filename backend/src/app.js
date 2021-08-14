@@ -2,9 +2,8 @@ const express = require("express");
 const hbs = require("hbs");
 const path = require("path");
 require("./db/conn");
-const MyCollection = require("./models/registers")
-const bcrypt = require("bcryptjs")
-dotenv.config({path:"./././config.env"});
+const MyCollection = require("./models/registers");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 
