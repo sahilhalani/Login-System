@@ -19,7 +19,7 @@ app.set("views", staticpath);
 hbs.registerPartials(staticpath + "/partials");
 
 app.get("/", (req, res) => {
-    res.render("index")
+    res.render("register")
 });
 
 app.get("/register", (req, res) => {
