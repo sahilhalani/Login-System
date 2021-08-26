@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const mySchema = new mongoose.Schema({
     firstname: {
@@ -21,8 +22,7 @@ const mySchema = new mongoose.Schema({
     },
     phone: {
         type: Number,
-        require: true,
-        unique: true
+        require: true, 
     },
     age: {
         type: Number,
@@ -35,18 +35,41 @@ const mySchema = new mongoose.Schema({
     confirmpassword: {
         type: String,
         require: true
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            require: true
+        }
+    }]
 })
+
+
+// //generating token
+mySchema.methods.generateAuthToken = async function () {
+    try {
+        const sahil = jwt.sign({ _id:this._id.toString() }, process.env.jsonkey);
+        this.tokens = this.tokens.concat({token:sahil})
+        await this.save();
+        return sahil;
+    } catch (error) {
+        console.log("The error is  " + error);
+    }
+};
+
 
 // hashing password
 
 mySchema.pre("save", async function (next) {
     if (this.isModified("password")) {
-        this.password = await bcrypt.hash(this.password, 10)
+        this.password = await bcrypt.hash(this.password, 10);
         this.confirmpassword = undefined
     }
     next();
 })
+
+
+
 
 //creating collection
 
